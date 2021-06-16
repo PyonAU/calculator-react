@@ -1,0 +1,21 @@
+.backButton {
+  min-height: 50px;
+  font-size: 20px;
+  font-weight: 100;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: rgb(240, 116, 240)
+}
+
+.backButton:hover {
+  filter: brightness(110%);
+}
+
+.backButton:active {
+  transform: translateY(1px);
+}
+
+.backButton:focus {
+  outline: none;
+}

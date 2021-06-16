@@ -4,6 +4,7 @@ import FunctionButton from './FunctionButton';
 import NumberButton from './NumberButton';
 import ClearButton from './ClearButton';
 import EqualButton from './EqualButton';
+import BackButton from './BackButton';
 import styles from './Calculator.module.css';
 
 function Calculator() {
@@ -25,6 +26,7 @@ function Calculator() {
           <NumberButton buttonValue="7" />
           <NumberButton buttonValue="8" />
           <NumberButton buttonValue="9" />
+          <BackButton />
           <NumberButton buttonValue="4" />
           <NumberButton buttonValue="5" />
           <NumberButton buttonValue="6" />
