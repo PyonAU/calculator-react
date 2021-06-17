@@ -21,8 +21,8 @@ function Calculator() {
         <div className={styles.calculatorButtons}>
           <FunctionButton buttonValue="+" />
           <FunctionButton buttonValue="-" />
-          <FunctionButton buttonValue="*" />
-          <FunctionButton buttonValue="/" />
+          <FunctionButton buttonValue="x" />
+          <FunctionButton buttonValue="÷" />
           <NumberButton buttonValue="7" />
           <NumberButton buttonValue="8" />
           <NumberButton buttonValue="9" />
