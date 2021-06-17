@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { NumberContext } from './NumberProvider';
 import styles from './BackButton.module.css';
 
-function BackButton({ buttonValue }) {
+function BackButton() {
   const { handleBackButton } = useContext(NumberContext);
   return (
     <button
@@ -10,7 +10,7 @@ function BackButton({ buttonValue }) {
       className={styles.backButton}
       onClick={handleBackButton}
     >
-      &#8592;
+      <i className="fas fa-long-arrow-alt-left"></i>
     </button>
   );
 }

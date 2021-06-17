@@ -5,7 +5,8 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background: rgb(240, 116, 240)
+  background: rgb(240, 116, 240);
+  color: white;
 }
 
 .backButton:hover {
