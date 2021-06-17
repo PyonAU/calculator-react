@@ -43,6 +43,28 @@ function NumberProvider({ children }) {
     }
   };
 
+  const calculate = () => {
+    if (number && storedNumber) {
+      switch (functionType) {
+        case '+':
+          setStoredNumber(`${Math.round(`${(parseFloat(storedNumber) + parseFloat(number)) * 100}`) / 100}`);
+          break;
+        case '-':
+          setStoredNumber(`${Math.round(`${(parseFloat(storedNumber) - parseFloat(number)) * 1000}`) / 1000}`);
+          break;
+        case '÷':
+          setStoredNumber(`${Math.round(`${(parseFloat(storedNumber) / parseFloat(number)) * 1000}`) / 1000}`);
+          break;
+        case 'x':
+          setStoredNumber(`${Math.round(`${(parseFloat(storedNumber) * parseFloat(number)) * 1000}`) / 1000}`);
+          break;
+        default:
+          break;
+      }
+      setNumber('');
+    }
+  };
+
   return (
     <NumberContext.Provider
       value={{
@@ -53,7 +75,8 @@ function NumberProvider({ children }) {
         handleSetCalcFunction,
         functionType,
         handleClearValue,
-        handleBackButton
+        handleBackButton,
+        calculate
       }}
     >
       {children}
