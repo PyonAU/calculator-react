@@ -5,6 +5,7 @@ import NumberButton from './NumberButton';
 import ClearButton from './ClearButton';
 import EqualButton from './EqualButton';
 import BackButton from './BackButton';
+import HistoryDisplay from './HistoryDisplay';
 import styles from './Calculator.module.css';
 
 function Calculator() {
@@ -38,6 +39,9 @@ function Calculator() {
           <ClearButton />
           <EqualButton />
         </div>
+      </div>
+      <div className={styles.wrapper}>
+        <HistoryDisplay />
       </div>
     </div>
   );
