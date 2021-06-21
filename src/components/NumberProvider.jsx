@@ -1,33 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 export const NumberContext = React.createContext();
 
 function NumberProvider({ children }) {
+  // State
+  const [number, setNumber] = useState("");
+  const [storedNumber, setStoredNumber] = useState("");
+  const [functionType, setFunctionType] = useState("");
 
-  // state
-  const [ number, setNumber ] = useState('');
-  const [ storedNumber, setStoredNumber ] = useState('');
-  const [ functionType, setFunctionType ] = useState('');
+  const [history, setHistory] = useState({
+    firstValue: "",
+    operatorValue: "",
+    secondValue: "",
+    calculation: "",
+  });
+  const [historyArray, setHistoryArray] = useState([]);
+
+  // Destructuring
+  const { secondValue, calculation } = history;
 
   const handleSetDisplayValue = (num) => {
-    if ((!number.includes('.') || num !== '.') && number.length < 8) {
-      setNumber(`${(number + num).replace(/^0+/, '')}`);
+    if ((!number.includes(".") || num !== ".") && number.length < 8) {
+      setNumber(`${(number + num).replace(/^0+/, "")}`);
     }
   };
 
   const handleSetStoredValue = () => {
+    setHistory({ ...history, firstValue: number });
     setStoredNumber(number);
-    setNumber('');
+    setNumber("");
   };
 
   const handleClearValue = () => {
-    setNumber('');
-    setStoredNumber('');
-    setFunctionType('');
+    setNumber("");
+    setStoredNumber("");
+    setFunctionType("");
   };
 
   const handleBackButton = () => {
-    if (number !== '') {
+    if (number !== "") {
       const deleteNumber = number.slice(0, number.length - 1);
       setNumber(deleteNumber);
     }
@@ -44,25 +55,57 @@ function NumberProvider({ children }) {
   };
 
   const calculate = () => {
+    let operation;
+    let input;
+
     if (number && storedNumber) {
-      switch (functionType) {
-        case '+':
-          setStoredNumber(`${Math.round(`${(parseFloat(storedNumber) + parseFloat(number)) * 100}`) / 100}`);
-          break;
-        case '-':
-          setStoredNumber(`${Math.round(`${(parseFloat(storedNumber) - parseFloat(number)) * 1000}`) / 1000}`);
-          break;
-        case '÷':
-          setStoredNumber(`${Math.round(`${(parseFloat(storedNumber) / parseFloat(number)) * 1000}`) / 1000}`);
-          break;
-        case 'x':
-          setStoredNumber(`${Math.round(`${(parseFloat(storedNumber) * parseFloat(number)) * 1000}`) / 1000}`);
-          break;
-        default:
-          break;
+      input = {
+        firstValue: storedNumber,
+        operatorValue: functionType,
+        secondValue: number
       }
-      setNumber('');
+    } else {
+      input = {
+        firstValue: calculation,
+        operatorValue: functionType,
+        secondValue: secondValue
+      }
     }
+    switch (functionType) {
+      case "+":
+        operation = (a, b) => (Math.round((parseFloat(a) + parseFloat(b)) * 100) / 100);
+        break;
+      case "-":
+        operation = (a, b) => (Math.round((parseFloat(a) - parseFloat(b)) * 1000) / 1000);
+        break;
+      case "÷":
+        operation = (a, b) => (Math.round((parseFloat(a) / parseFloat(b)) * 1000) / 1000);
+        break;
+      case "x":
+        operation = (a, b) => (Math.round((parseFloat(a) * parseFloat(b)) * 1000) / 1000);
+        break;
+      default:
+        break;
+    }
+    const value = operation(+input.firstValue, +input.secondValue);
+    setHistory({ ...input, calculation: value });
+    setHistoryArray(hist =>
+      hist.length ?
+        [...hist, { ...input, calculation: value }] :
+        [{ ...input, calculation: value }]);
+    setStoredNumber(() => value);
+    setNumber("");
+  };
+
+
+  const handleDeleteHistory = () => {
+    setHistory({
+      firstValue: "",
+      operatorValue: "",
+      secondValue: "",
+      calculation: "",
+    });
+    setHistoryArray([]);
   };
 
   return (
@@ -76,7 +119,9 @@ function NumberProvider({ children }) {
         functionType,
         handleClearValue,
         handleBackButton,
-        calculate
+        calculate,
+        historyArray,
+        handleDeleteHistory
       }}
     >
       {children}
