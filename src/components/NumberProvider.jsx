@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 export const NumberContext = React.createContext();
 
@@ -26,7 +26,6 @@ function NumberProvider({ children }) {
   };
 
   const handleSetStoredValue = () => {
-    setHistory({ ...history, firstValue: number });
     setStoredNumber(number);
     setNumber("");
   };
