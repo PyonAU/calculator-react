@@ -90,7 +90,7 @@ function NumberProvider({ children }) {
     setHistory({ ...input, calculation: value });
     setHistoryArray(hist =>
       hist.length ?
-        [...hist, { ...input, calculation: value }] :
+        [{ ...input, calculation: value }, ...hist] :
         [{ ...input, calculation: value }]);
     setStoredNumber(() => value);
     setNumber("");
