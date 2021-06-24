@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Display from './Display';
 import FunctionButton from './FunctionButton';
 import NumberButton from './NumberButton';
@@ -10,14 +10,26 @@ import styles from './Calculator.module.css';
 
 function Calculator() {
 
+  // States
+  const [ isClicked, setIsClicked ] = useState(false);
+  const [ width, setWidth ] = useState('400px');
+  const [ visibility, setVisibility ] = useState('hidden');
+
+  const handleHistory = () => {
+    setIsClicked((prevState) => !prevState);
+    setWidth(width === '400px' ? '800px' : '400px');
+    setVisibility(visibility === 'hidden' ? 'visible' : 'hidden');
+  };
 
   return (
     // Calculator
-    <div className={styles.calculator}>
+    <div className={styles.calculator} style={{width}}>
       {/* Wrap Display & Buttons */}
       <div className={styles.wrapper}>
         {/* Display */}
-        <Display />
+        <Display 
+          handleHistory={handleHistory}
+        />
         {/* Buttons */}
         <div className={styles.calculatorButtons}>
           <FunctionButton buttonValue="+" />
@@ -41,7 +53,10 @@ function Calculator() {
         </div>
       </div>
       <div className={styles.wrapper}>
-        <HistoryDisplay />
+        <HistoryDisplay 
+          isClicked={isClicked}
+          visibility={visibility}
+        />
       </div>
     </div>
   );
