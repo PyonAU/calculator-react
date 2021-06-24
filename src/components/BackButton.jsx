@@ -10,7 +10,7 @@ function BackButton() {
       className={styles.backButton}
       onClick={handleBackButton}
     >
-      <i className="fas fa-long-arrow-alt-left"></i>
+      <i className="fas fa-backspace"></i>
     </button>
   );
 }
