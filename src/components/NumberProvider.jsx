@@ -96,7 +96,6 @@ function NumberProvider({ children }) {
     setNumber("");
   };
 
-
   const handleDeleteHistory = () => {
     setHistory({
       firstValue: "",
